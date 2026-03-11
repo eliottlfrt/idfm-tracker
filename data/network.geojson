@@ -1,41 +1,22 @@
 {
-"type":"FeatureCollection",
-"features":[
-
-{
-"type":"Feature",
-"properties":{
-"id":"M1",
-"name":"Metro 1"
-},
-"geometry":{
-"type":"LineString",
-"coordinates":[
-[2.370,48.846],
-[2.360,48.850],
-[2.350,48.853],
-[2.340,48.857],
-[2.330,48.860]
-]
-}
-},
-
-{
-"type":"Feature",
-"properties":{
-"id":"M4",
-"name":"Metro 4"
-},
-"geometry":{
-"type":"LineString",
-"coordinates":[
-[2.325,48.835],
-[2.330,48.845],
-[2.335,48.855],
-[2.340,48.865]
-]
-}
-}
-
-]
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "M1",
+        "name": "Métro 1"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [2.360, 48.896], 
+          [2.350, 48.891], 
+          [2.340, 48.885], 
+          [2.330, 48.880], 
+          [2.320, 48.873]
+        ]
+      }
+    }
+  ]
 }
