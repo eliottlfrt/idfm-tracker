@@ -5,20 +5,46 @@ L.tileLayer(
 {maxZoom:19}
 ).addTo(map)
 
-let trips = JSON.parse(localStorage.getItem("trips") || "[]")
+let network = null
 
-function saveTrips(){
-localStorage.setItem("trips",JSON.stringify(trips))
+let visitedLines = JSON.parse(
+localStorage.getItem("visitedLines") || "[]"
+)
+
+fetch("data/network.geojson")
+.then(r=>r.json())
+.then(data=>{
+
+network=data
+drawVisited()
+
+})
+
+function save(){
+
+localStorage.setItem(
+"visitedLines",
+JSON.stringify(visitedLines)
+)
+
 }
 
-function drawTrips(){
+function drawVisited(){
 
-trips.forEach(t=>{
+if(!network) return
+
+network.features.forEach(line=>{
+
+if(visitedLines.includes(line.properties.id)){
+
+let coords=line.geometry.coordinates.map(c=>[c[1],c[0]])
 
 L.polyline(
-[t.start,t.end],
-{color:"red",weight:4}
+coords,
+{color:"red",weight:5}
 ).addTo(map)
+
+}
 
 })
 
@@ -26,36 +52,21 @@ L.polyline(
 
 function addTrip(){
 
-let line = document.getElementById("line").value
-let start = document.getElementById("start").value
-let end = document.getElementById("end").value
+let line=document.getElementById("line").value
 
-if(!line||!start||!end){
-alert("remplis les champs")
+if(!line){
+alert("entre une ligne")
 return
 }
 
-let trip={
-line:line,
-start:randomCoord(),
-end:randomCoord()
-}
+if(!visitedLines.includes(line)){
 
-trips.push(trip)
+visitedLines.push(line)
 
-saveTrips()
+save()
 
-drawTrips()
+drawVisited()
 
 }
 
-function randomCoord(){
-
-let lat = 48.8 + Math.random()*0.15
-let lon = 2.25 + Math.random()*0.25
-
-return [lat,lon]
-
 }
-
-drawTrips()
